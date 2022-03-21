@@ -12,8 +12,8 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/",
-    packages=['CT_TIQUA'],
-    package_data={'': ['data/*', 'README.md']},
+    packages=['CT_TIQUA', 'CT_TIQUA.blast_ct', 'CT_TIQUA.blast_ct.blast_ct', 'CT_TIQUA.blast_ct.blast_ct.trainer', 'CT_TIQUA.blast_ct.blast_ct.nifti', 'CT_TIQUA.blast_ct.blast_ct.models'],
+    package_data={'': ['data/*', 'README.md', 'data/saved_models/*.pt', 'data/config.json']},
     entry_points={
         'console_scripts': [
             'ct-tiqua = CT_TIQUA.console_tool:console_tool',
@@ -23,9 +23,11 @@ setuptools.setup(
     install_requires=[
         'scipy==1.4',
         'numpy',
-        'Cython',
         'pandas',
         'nibabel',
+        'torch',
+        'SimpleITK==1.2.4',
+        'tensorboard',
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.7',
 )
