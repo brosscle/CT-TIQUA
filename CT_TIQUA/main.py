@@ -22,10 +22,11 @@ def inference(infile, outfolder, ensemble, device):
     fname_ext=splt[-1]
     splt2 = fname_ext.split('.')
     fname = splt2[0]
-    outfile = outfolder+'/'+fname+'_seg.nii.gz'
+    segfile = outfolder+'/'+fname+'_seg.nii.gz'
     probfile = outfolder+'/'+fname+'_prob.nii.gz'
-    console_tool_stand_alone(infile, outfile, device, probfile, ensemble)
+    console_tool_stand_alone(infile, segfile, device, probfile, ensemble)
 
+    
 
 
 
