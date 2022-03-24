@@ -29,6 +29,7 @@ setuptools.setup(
         'tensorboard',
         'pybids',
         'antspyx',
+        'nipype',
     ],
     python_requires='>=3.7',
 )
