@@ -18,7 +18,7 @@ import ants
 
 # When executing from the commandline (install with pip)
 from .blast_ct.blast_ct.console_tool import console_tool_stand_alone
-from python_scripts.Volume_estimation import Single_Volume_Inference
+from .python_scripts.Volume_estimation import Single_Volume_Inference
 
 # When executing this script (from spyder for example)
 #from blast_ct.blast_ct.console_tool import console_tool_stand_alone
