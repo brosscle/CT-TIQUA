@@ -12,7 +12,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/",
-    packages=['CT_TIQUA', 'CT_TIQUA.blast_ct', 'CT_TIQUA.blast_ct.blast_ct', 'CT_TIQUA.blast_ct.blast_ct.trainer', 'CT_TIQUA.blast_ct.blast_ct.nifti', 'CT_TIQUA.blast_ct.blast_ct.models','CT_TIQUA.python_scripts.Volume_estimation'],
+    packages=['CT_TIQUA', 'CT_TIQUA.blast_ct', 'CT_TIQUA.blast_ct.blast_ct', 'CT_TIQUA.blast_ct.blast_ct.trainer', 'CT_TIQUA.blast_ct.blast_ct.nifti', 'CT_TIQUA.blast_ct.blast_ct.models'],
     package_data={'': ['data/*', 'README.md', 'data/saved_models/*.pt', 'data/config.json', 'data/Labels_With_0.csv', 'data/Resliced_Registered_Labels_mod.nii.gz', 'data/TEMPLATE_miplab-ncct_sym_brain.nii.gz']},
     entry_points={
         'console_scripts': [
@@ -28,7 +28,7 @@ setuptools.setup(
         'SimpleITK==1.2.4',
         'tensorboard',
         'pybids',
-        'antspyx'
+        'antspyx',
     ],
     python_requires='>=3.7',
 )
