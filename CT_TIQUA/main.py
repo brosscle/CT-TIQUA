@@ -12,19 +12,17 @@ import nibabel.processing
 import socket
 import os
 
-import bids
 from nipype.interfaces import fsl
-import csv
-from multiprocessing import Pool
-from shutil import copyfile
 import ants
-from python_scripts.Volume_estimation import Single_Volume_Inference
+
 
 # When executing from the commandline (install with pip)
-#from .blast_ct.blast_ct.console_tool import console_tool_stand_alone
+from .blast_ct.blast_ct.console_tool import console_tool_stand_alone
+from .python_scripts.Volume_estimation import Single_Volume_Inference
 
 # When executing this script (from spyder for example)
-from blast_ct.blast_ct.console_tool import console_tool_stand_alone
+#from blast_ct.blast_ct.console_tool import console_tool_stand_alone
+#from python_scripts.Volume_estimation import Single_Volume_Inference
 
 
 def inference(infile, outfolder, ensemble, device):
