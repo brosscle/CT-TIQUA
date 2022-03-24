@@ -59,7 +59,7 @@ def console_tool():
     shutil.copyfile(output_dataframe.loc[0, 'prediction'], parse_args.output)
     shutil.rmtree(job_dir)
 
-def console_tool_stand_alone(inp, out, device, prob_maps, ensemble):
+def console_tool_stand_alone(inp, out, device, prob_maps, ensemble, fold_tmp):
     #parser = argparse.ArgumentParser()
     #parser.add_argument('--input', metavar='input', type=path, help='Path to input image.', required=True)
     #parser.add_argument('--output', metavar='output', type=str, help='Path to output image.', required=True)
@@ -80,13 +80,15 @@ def console_tool_stand_alone(inp, out, device, prob_maps, ensemble):
         raise IOError('Output file must be of type .nii.gz')
 
     install_dir = os.path.dirname(os.path.realpath(__file__))
-    with open(os.path.join(install_dir, 'data/config.json'), 'r') as f:
+    #with open(os.path.join(install_dir, 'data/config.json'), 'r') as f:
+    with open(os.path.join(install_dir, 'data/config_7_classes.json'), 'r') as f:
         config = json.load(f)
 
     device = set_device(device)
     if device.type == 'cpu':
         config['test']['batch_size'] = 32
-    job_dir = '/tmp/blast_ct'
+    #job_dir = '/tmp/blast_ct'
+    job_dir = fold_tmp+'blast_ct'
     os.makedirs(job_dir, exist_ok=True)
     test_csv_path = os.path.join(job_dir, 'test.csv')
     pd.DataFrame(data=[['im_0', inp]], columns=['id', 'image']).to_csv(test_csv_path, index=False)
@@ -96,10 +98,12 @@ def console_tool_stand_alone(inp, out, device, prob_maps, ensemble):
     saver = NiftiPatchSaver(job_dir, test_loader, write_prob_maps=True)
 
     if not ensemble:
-        model_path = os.path.join(install_dir, 'data/saved_models/model_1.pt')
+        #model_path = os.path.join(install_dir, 'data/saved_models/model_1.pt')
+        model_path = os.path.join(install_dir, 'data/7classes_models_pt/TL_REBLAST1_S5000.pt')
         ModelInference(job_dir, device, model, saver, model_path, 'segmentation')(test_loader)
     else:
-        model_paths = [os.path.join(install_dir, f'data/saved_models/model_{i:d}.pt') for i in range(1, 13)]
+        #model_paths = [os.path.join(install_dir, f'data/saved_models/model_{i:d}.pt') for i in range(1, 13)]
+        model_paths = [os.path.join(install_dir, f'data/7classes_models_pt/TL_REBLAST{i:d}_S5000.pt') for i in range(1, 13)]
         ModelInferenceEnsemble(job_dir, device, model, saver, model_paths, task='segmentation')(test_loader)
     output_dataframe = pd.read_csv(os.path.join(job_dir, 'predictions/prediction.csv'))
 
@@ -116,7 +120,7 @@ def console_tool_stand_alone(inp, out, device, prob_maps, ensemble):
             raise IOError('ProbMap file must be of type .nii or .nii.gz')
         out_h = nib.Nifti1Image(p_map, h.affine)
         nib.save(out_h, name)
-    shutil.rmtree(job_dir)
+    #shutil.rmtree(job_dir)
     #shutil.rmtree(job_dir, ignore_errors=True)
 
 
