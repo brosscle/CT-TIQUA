@@ -49,11 +49,18 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     print('Start of the quality control 1...')
     opt={"Sform_code":'aligned', "Qform_code":'unknown'}
     img_h = nib.load(infile)
+    Vol = img_h.get_fdata()
+    img_cleaned = nib.Nifti1Image(Vol, img_h.affine)
     sform_code = opt['Sform_code']
     qform_code = opt['Qform_code']
-    img_h.set_sform(img_h.get_sform(), code=sform_code)
-    img_h.set_qform(img_h.get_qform(), code=qform_code)
-    nib.save(img_h, tmp_fold+basename+'_clean.nii.gz')
+    #for i in img_h.header.items():
+   # 	if i[0]=='sform_code':
+   # 		initial_sform_code = i[1]
+   # 	elif i[O]=='qform_code':
+   # 		initial_qform_code = i[1]		
+    img_cleaned.set_sform(img_cleaned.get_sform(), code=sform_code)
+    img_cleaned.set_qform(img_cleaned.get_qform(), code=qform_code)
+    nib.save(img_cleaned, tmp_fold+basename+'_clean.nii.gz')
     print('End of the quality control 1')
     
     #RESAMPLING
