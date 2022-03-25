@@ -34,9 +34,9 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     print('outfolder='+outfolder)
     print('matlab_App_path='+matlab_App_path)
     print('matlab_runtime_path='+matlab_runtime_path)
-    print('ensemble='+ensemble)
-    print('device='+device)
-    print('remove_tmp_files='+remove_tmp_files)
+    print('ensemble='+str(ensemble))
+    print('device='+str(device))
+    print('remove_tmp_files='+str(remove_tmp_files))
     sep = os.sep
     basename = os.path.basename(infile).split('.')[0]
     tmp_fold = outfolder+sep+'tmp'+sep
