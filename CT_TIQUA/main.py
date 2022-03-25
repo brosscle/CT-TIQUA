@@ -83,11 +83,11 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     
     
     #SEGMENTATION BLAST
-    print('Start of the segmentation...')
-    segfile = outfolder+sep+basename+'_seg.nii.gz'
-    probfile = tmp_fold+sep+basename+'_prob.nii.gz'
-    console_tool_stand_alone(resampled_file, segfile, device, probfile, ensemble, tmp_fold)
-    print('End of the segmentation')
+    #print('Start of the segmentation...')
+    #segfile = outfolder+sep+basename+'_seg.nii.gz'
+    #probfile = tmp_fold+sep+basename+'_prob.nii.gz'
+    #console_tool_stand_alone(resampled_file, segfile, device, probfile, ensemble, tmp_fold)
+    #print('End of the segmentation')
     
     #CHECK THAT SEGMENTATION HAS A QFORMCODE EQUAL TO 1
     
@@ -113,7 +113,7 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
 
 
     applyxfm = fsl.ApplyXFM()
-    applyxfm.inputs.in_matrix_file = tmp_fold+basename+ '_FLIRTRegistered_transform-matrix.mat'
+    applyxfm.inputs.in_matrix_file = tmp_fold+basename+ '_FLIRTRegisteredTemplate_transform-matrix.mat'
     applyxfm.inputs.in_file = Atlas
     applyxfm.inputs.out_file = tmp_fold+basename+'_Altas_FLIRTRegistered.nii.gz'
     applyxfm.inputs.reference = tmp_fold+basename+'_SkullStripped.nii.gz'

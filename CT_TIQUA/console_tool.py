@@ -39,6 +39,6 @@ def console_tool():
         raise IOError('Output must be a folder, not an image.')
 
     os.makedirs(parse_args.output+'/tmp/', exist_ok=True)
-    inference(parse_args.input, parse_args.output, parse_args.matlab_App_path, parse_args.matlab_runtime_path, parse_args.ensemble, parse_args.device, parse_args.remove_tmp_files)
+    inference(parse_args.input, parse_args.output, parse_args.matlab_App_path, parse_args.matlab_RunTime_path, parse_args.ensemble, parse_args.device, parse_args.remove_tmp_files)
 
 
