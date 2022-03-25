@@ -25,7 +25,9 @@ def console_tool():
     parser.add_argument('--ensemble', help='Whether to use all the models (slower but more precise)', type=bool,
                         default=False)
     parser.add_argument('--device', help='GPU device index (int) or \'cpu\' (str)', default='cpu')
+    parser.add_argument('--remove_tmp_files', help='Removing temporary files at the end of the pipeline', type=bool, default=True)
 
+    
     parse_args, unknown = parser.parse_known_args()
     if not (parse_args.input[-7:] == '.nii.gz' or parse_args.input[-4:] == '.nii'):
         raise IOError('Input file must be of type .nii or .nii.gz')
@@ -34,6 +36,6 @@ def console_tool():
         raise IOError('Output must be a folder, not an image.')
 
     os.makedirs(parse_args.output+'/tmp/', exist_ok=True)
-    inference(parse_args.input, parse_args.output, parse_args.ensemble, parse_args.device)
+    inference(parse_args.input, parse_args.output, parse_args.ensemble, parse_args.device, parse_args.remove_tmp_files)
 
 

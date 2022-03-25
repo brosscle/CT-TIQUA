@@ -11,6 +11,7 @@ import nibabel as nib
 import nibabel.processing
 import socket
 import os
+import shutil
 
 from nipype.interfaces import fsl
 import ants
@@ -25,9 +26,9 @@ from .python_scripts.Volume_estimation import Single_Volume_Inference
 #from python_scripts.Volume_estimation import Single_Volume_Inference
 
 
-def inference(infile, outfolder, ensemble, device):
+def inference(infile, outfolder, ensemble, device, remove_tmp_files):
    
-    print('Start of the pipeline')
+    print('Start of the pipeline...')
     print('Summary:')
     print('infile='+infile)
     print('outfolder='+outfolder)
@@ -40,7 +41,7 @@ def inference(infile, outfolder, ensemble, device):
     
     
     #CHECK THAT INPUT IMAGE HAS A QFORMCODE EQUAL TO 1
-    print('Start of the quality control')
+    print('Start of the quality control...')
     opt={"Sform_code":'scanner', "Qform_code":'scanner'}
     img_h = nib.load(infile)
     sform_code = opt['Sform_code']
@@ -51,7 +52,7 @@ def inference(infile, outfolder, ensemble, device):
     print('End of the quality control')
     
     #RESAMPLING
-    print('Start of the resampling')
+    print('Start of the resampling...')
     im_h = nib.load(tmp_fold+basename+'_clean.nii.gz')
     order = 0
     pixdim=[1,1,1]
@@ -66,7 +67,7 @@ def inference(infile, outfolder, ensemble, device):
     
     
     # #BRAIN EXTRACTION
-    # print('Start of the brain extraction')
+    # print('Start of the brain extraction...')
     # matlab_runtime_path = fold+sep+'matlab_scripts'+sep+'RunTime'+sep+'v910'
     # App_path = fold+sep+'matlab_scripts'+sep+'App'+sep+'application'+sep+'run_SkullStrip.sh'
     # print(matlab_runtime_path)
@@ -82,7 +83,7 @@ def inference(infile, outfolder, ensemble, device):
     
     
     # #SEGMENTATION BLAST
-    # print('Start of the segmentation')
+    # print('Start of the segmentation...')
     # segfile = outfolder+sep+basename+'_seg.nii.gz'
     # probfile = tmp_fold+sep+basename+'_prob.nii.gz'
     # console_tool_stand_alone(resampled_file, segfile, device, probfile, ensemble, tmp_fold)
@@ -91,7 +92,7 @@ def inference(infile, outfolder, ensemble, device):
     #CHECK THAT SEGMENTATION HAS A QFORMCODE EQUAL TO 1
     
     # REGISTRATION
-    print('Start of the linear registration')
+    print('Start of the linear registration...')
     Atlas = fold+sep+'data'+sep+'Resliced_Registered_Labels_mod.nii.gz'
     Template = fold+sep+'data'+sep+'TEMPLATE_miplab-ncct_sym_brain.nii.gz'
     flt = fsl.FLIRT()
@@ -129,7 +130,7 @@ def inference(infile, outfolder, ensemble, device):
     
     
     
-    print('Start of the elastic registration')
+    print('Start of the elastic registration...')
     img_fixed = ants.image_read(tmp_fold+basename+'_SkullStripped.nii.gz')
     img_moving = ants.image_read(tmp_fold+basename+'_Template_FLIRTRegistered.nii.gz')
     outprefix=tmp_fold+basename
@@ -145,7 +146,7 @@ def inference(infile, outfolder, ensemble, device):
 
     #CHECK THAT REGISTERED TEMPLATE AND ATLAS HAVE A QFORMCODE EQUAL TO 1
 
-    print('Start of the volume computation')
+    print('Start of the volume computation...')
     seg = outfolder+sep+basename+'_seg.nii.gz'
     atlas = outfolder+sep+basename+'_Altas_ANTSRegistered.nii.gz'
     Labels = fold+sep+'data'+sep+'Labels_With_0.csv'
@@ -154,6 +155,9 @@ def inference(infile, outfolder, ensemble, device):
     
     print('End of the volume computation')
     
+    if remove_tmp_files:
+        print('Removing of the temporary files...')
+        shutil.rmtree(tmp_fold)
     
     print('End of the pipeline')
 
