@@ -26,7 +26,7 @@ from .python_scripts.Volume_estimation import Single_Volume_Inference
 #from python_scripts.Volume_estimation import Single_Volume_Inference
 
 
-def inference(infile, outfolder, ensemble, device, remove_tmp_files):
+def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble, device, remove_tmp_files):
    
     print('Start of the pipeline...')
     print('Summary:')
@@ -68,13 +68,13 @@ def inference(infile, outfolder, ensemble, device, remove_tmp_files):
     
     #BRAIN EXTRACTION
     print('Start of the brain extraction...')
-    matlab_runtime_path = fold+sep+'matlab_scripts'+sep+'RunTime'+sep+'v910'
-    App_path = fold+sep+'matlab_scripts'+sep+'App'+sep+'application'+sep+'run_SkullStrip.sh'
-    print(matlab_runtime_path)
+    #matlab_runtime_path = fold+sep+'matlab_scripts'+sep+'RunTime'+sep+'v910'
+    #matlab_App_path = fold+sep+'matlab_scripts'+sep+'App'+sep+'application'+sep+'run_SkullStrip.sh'
+    #print(matlab_runtime_path)
     outimage = tmp_fold+basename+'_SkullStripped.nii'
     outROI = tmp_fold+basename+'_ROI.nii'
-    cmdline = App_path+' ' + matlab_runtime_path + ' ' + resampled_file + ' ' + outimage + ' ' + outROI
-    print(cmdline)
+    cmdline = matlab_App_path+' ' + matlab_runtime_path + ' ' + resampled_file + ' ' + outimage + ' ' + outROI
+    #print(cmdline)
     os.system(cmdline)
     print('End of the brain extraction')
     
