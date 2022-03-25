@@ -162,8 +162,8 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     
     if remove_tmp_files:
         print('Removing of the temporary files...')
-        shutil.rmtree(tmp_fold+'blast_ct'+sep)
-        shutil.rmtree(tmp_fold)
+        #shutil.rmtree(tmp_fold+'blast_ct'+sep)
+        shutil.rmtree(tmp_fold, ignore_errors=True)
     
     print('End of the pipeline')
 
