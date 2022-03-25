@@ -83,11 +83,11 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     
     
     #SEGMENTATION BLAST
-    #print('Start of the segmentation...')
-    #segfile = outfolder+sep+basename+'_seg.nii.gz'
-    #probfile = tmp_fold+sep+basename+'_prob.nii.gz'
-    #console_tool_stand_alone(resampled_file, segfile, device, probfile, ensemble, tmp_fold)
-    #print('End of the segmentation')
+    print('Start of the segmentation...')
+    segfile = outfolder+sep+basename+'_seg.nii.gz'
+    probfile = tmp_fold+sep+basename+'_prob.nii.gz'
+    console_tool_stand_alone(resampled_file, segfile, device, probfile, ensemble, tmp_fold)
+    print('End of the segmentation')
     
     #CHECK THAT SEGMENTATION HAS A QFORMCODE EQUAL TO 1
     
