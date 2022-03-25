@@ -66,28 +66,28 @@ def inference(infile, outfolder, ensemble, device, remove_tmp_files):
     
     
     
-    # #BRAIN EXTRACTION
-    # print('Start of the brain extraction...')
-    # matlab_runtime_path = fold+sep+'matlab_scripts'+sep+'RunTime'+sep+'v910'
-    # App_path = fold+sep+'matlab_scripts'+sep+'App'+sep+'application'+sep+'run_SkullStrip.sh'
-    # print(matlab_runtime_path)
-    # outimage = tmp_fold+basename+'_SkullStripped.nii'
-    # outROI = tmp_fold+basename+'_ROI.nii'
-    # cmdline = App_path+' ' + matlab_runtime_path + ' ' + resampled_file + ' ' + outimage + ' ' + outROI
-    # print(cmdline)
-    # os.system(cmdline)
-    # print('End of the brain extraction')
+    #BRAIN EXTRACTION
+    print('Start of the brain extraction...')
+    matlab_runtime_path = fold+sep+'matlab_scripts'+sep+'RunTime'+sep+'v910'
+    App_path = fold+sep+'matlab_scripts'+sep+'App'+sep+'application'+sep+'run_SkullStrip.sh'
+    print(matlab_runtime_path)
+    outimage = tmp_fold+basename+'_SkullStripped.nii'
+    outROI = tmp_fold+basename+'_ROI.nii'
+    cmdline = App_path+' ' + matlab_runtime_path + ' ' + resampled_file + ' ' + outimage + ' ' + outROI
+    print(cmdline)
+    os.system(cmdline)
+    print('End of the brain extraction')
     
     
     #CHECK THAT SKULL STRIPPED AND ROI HAVE A QFORMCODE EQUAL TO 1
     
     
-    # #SEGMENTATION BLAST
-    # print('Start of the segmentation...')
-    # segfile = outfolder+sep+basename+'_seg.nii.gz'
-    # probfile = tmp_fold+sep+basename+'_prob.nii.gz'
-    # console_tool_stand_alone(resampled_file, segfile, device, probfile, ensemble, tmp_fold)
-    # print('End of the segmentation')
+    #SEGMENTATION BLAST
+    print('Start of the segmentation...')
+    segfile = outfolder+sep+basename+'_seg.nii.gz'
+    probfile = tmp_fold+sep+basename+'_prob.nii.gz'
+    console_tool_stand_alone(resampled_file, segfile, device, probfile, ensemble, tmp_fold)
+    print('End of the segmentation')
     
     #CHECK THAT SEGMENTATION HAS A QFORMCODE EQUAL TO 1
     
