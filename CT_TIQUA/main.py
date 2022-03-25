@@ -46,15 +46,15 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     
     
     #CHECK THAT INPUT IMAGE HAS A QFORMCODE EQUAL TO 1
-    print('Start of the quality control...')
-    opt={"Sform_code":'scanner', "Qform_code":'scanner'}
+    print('Start of the quality control 1...')
+    opt={"Sform_code":'aligned', "Qform_code":'unknown'}
     img_h = nib.load(infile)
     sform_code = opt['Sform_code']
     qform_code = opt['Qform_code']
     img_h.set_sform(img_h.get_sform(), code=sform_code)
     img_h.set_qform(img_h.get_qform(), code=qform_code)
     nib.save(img_h, tmp_fold+basename+'_clean.nii.gz')
-    print('End of the quality control')
+    print('End of the quality control 1')
     
     #RESAMPLING
     print('Start of the resampling...')
@@ -86,6 +86,15 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     
     #CHECK THAT SKULL STRIPPED AND ROI HAVE A QFORMCODE EQUAL TO 1
     
+    print('Start of the quality control 2...')
+    opt={"Sform_code":'scanner', "Qform_code":'scanner'}
+    img_h = nib.load(tmp_fold+basename+'_SkullStripped.nii')
+    sform_code = opt['Sform_code']
+    qform_code = opt['Qform_code']
+    img_h.set_sform(img_h.get_sform(), code=sform_code)
+    img_h.set_qform(img_h.get_qform(), code=qform_code)
+    nib.save(img_h, tmp_fold+basename+'_SkullStripped_clean.nii.gz')
+    print('End of the quality control 2')
     
     #SEGMENTATION BLAST
     print('Start of the segmentation...')
@@ -103,7 +112,7 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     flt = fsl.FLIRT()
 
     flt.inputs.in_file = Template
-    flt.inputs.reference = tmp_fold+basename+'_SkullStripped.nii.gz'
+    flt.inputs.reference = tmp_fold+basename+'_SkullStripped_clean.nii.gz'
     flt.inputs.out_file = tmp_fold+basename+'_Template_FLIRTRegistered.nii.gz'
     flt.inputs.out_matrix_file = tmp_fold+basename+ '_FLIRTRegisteredTemplate_transform-matrix.mat'
     flt.inputs.dof = 7
@@ -121,7 +130,7 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     applyxfm.inputs.in_matrix_file = tmp_fold+basename+ '_FLIRTRegisteredTemplate_transform-matrix.mat'
     applyxfm.inputs.in_file = Atlas
     applyxfm.inputs.out_file = tmp_fold+basename+'_Altas_FLIRTRegistered.nii.gz'
-    applyxfm.inputs.reference = tmp_fold+basename+'_SkullStripped.nii.gz'
+    applyxfm.inputs.reference = tmp_fold+basename+'_SkullStripped_clean.nii.gz'
     applyxfm.inputs.apply_xfm = True
     applyxfm.inputs.out_matrix_file = tmp_fold+basename+ '_FLIRTRegisteredAtlas_transform-matrix.mat'
     applyxfm.inputs.interp = 'nearestneighbour'
@@ -136,7 +145,7 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     
     
     print('Start of the elastic registration...')
-    img_fixed = ants.image_read(tmp_fold+basename+'_SkullStripped.nii.gz')
+    img_fixed = ants.image_read(tmp_fold+basename+'_SkullStripped_clean.nii.gz')
     img_moving = ants.image_read(tmp_fold+basename+'_Template_FLIRTRegistered.nii.gz')
     outprefix=tmp_fold+basename
     reg = ants.registration(img_fixed, img_moving, outprefix=outprefix)
