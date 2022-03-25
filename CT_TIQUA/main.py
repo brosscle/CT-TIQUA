@@ -95,7 +95,7 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     
     print('Start of the quality control 2...')
     opt={"Sform_code":'scanner', "Qform_code":'scanner'}
-    img_h = nib.load(tmp_fold+basename+'_SkullStripped.nii')
+    img_h = nib.load(tmp_fold+basename+'_SkullStripped.nii.gz')
     sform_code = opt['Sform_code']
     qform_code = opt['Qform_code']
     img_h.set_sform(img_h.get_sform(), code=sform_code)
