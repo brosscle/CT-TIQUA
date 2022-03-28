@@ -28,7 +28,7 @@ def console_tool():
     parser.add_argument('--ensemble', help='Whether to use all the models (slower but more precise)', action="store_true",
                         default=False)
     parser.add_argument('--device', help='GPU device index (int) or \'cpu\' (str)', default='cpu')
-    parser.add_argument('--remove_tmp_files', help='Removing temporary files at the end of the pipeline', action="store_true", default=True)
+    parser.add_argument('--remove_tmp_files', help='Removing temporary files at the end of the pipeline', action="store_true", default=False)
 
     
     parse_args, unknown = parser.parse_known_args()
