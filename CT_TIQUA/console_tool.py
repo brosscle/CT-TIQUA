@@ -25,10 +25,10 @@ def console_tool():
     #matlab_App_path, matlab_runtime_path
     parser.add_argument('--matlab_App_path', metavar='matlab_App_path', type=str, help='Path to the matlab application, ie to the run_SkullStrip.sh file.', required=True)
     parser.add_argument('--matlab_RunTime_path', metavar='matlab_runtime_path', type=str, help='Path to the matlab RunTime, ie to the v910 folder.', required=True)
-    parser.add_argument('--ensemble', help='Whether to use all the models (slower but more precise)', type=bool,
+    parser.add_argument('--ensemble', help='Whether to use all the models (slower but more precise)', action="store_true",
                         default=False)
     parser.add_argument('--device', help='GPU device index (int) or \'cpu\' (str)', default='cpu')
-    parser.add_argument('--remove_tmp_files', help='Removing temporary files at the end of the pipeline', type=bool, default=True)
+    parser.add_argument('--remove_tmp_files', help='Removing temporary files at the end of the pipeline', action="store_true", default=True)
 
     
     parse_args, unknown = parser.parse_known_args()
