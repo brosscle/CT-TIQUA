@@ -155,7 +155,7 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     img_fixed = ants.image_read(tmp_fold+basename+'_SkullStripped_clean.nii.gz')
     img_moving = ants.image_read(tmp_fold+basename+'_Template_FLIRTRegistered.nii.gz')
     outprefix=tmp_fold+basename
-    reg = ants.registration(img_fixed, img_moving, outprefix=outprefix)
+    reg = ants.registration(img_fixed, img_moving, outprefix=outprefix, random_seed=42)
     reg['warpedmovout'].to_file(tmp_fold+basename+'_Template_ANTSRegistered.nii.gz')
     
     mytx = reg['fwdtransforms']
