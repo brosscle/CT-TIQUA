@@ -22,7 +22,7 @@ setuptools.setup(
     },
     install_requires=[
         'scipy==1.4',
-        'numpy',
+        'numpy>=1.21',
         'pandas',
         'nibabel',
         'torch',
