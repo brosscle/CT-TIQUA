@@ -21,7 +21,7 @@ setuptools.setup(
         ]
     },
     install_requires=[
-        'scipy==1.4',
+        'scipy>=1.4.0',
         'numpy>=1.21',
         'pandas',
         'nibabel',
