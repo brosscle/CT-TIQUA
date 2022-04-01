@@ -22,7 +22,6 @@ def console_tool():
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', metavar='input', type=path, help='Path to input image, as a nifti file, compressed of not (str).', required=True)
     parser.add_argument('--output', metavar='output', type=str, help='Path to the output folder where output data will be stored (str).', required=True)
-    #matlab_App_path, matlab_runtime_path
     parser.add_argument('--matlab_App_path', metavar='matlab_App_path', type=str, help='Path to the matlab application, ie to the run_SkullStrip.sh file (str).', required=True)
     parser.add_argument('--matlab_RunTime_path', metavar='matlab_runtime_path', type=str, help='Path to the matlab RunTime, ie to the v910 folder (str).', required=True)
     parser.add_argument('--device', help='GPU device index (int) or \'cpu\' (str).', default='cpu')
