@@ -22,8 +22,6 @@ def console_tool():
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', metavar='input', type=path, help='Path to input image, as a nifti file, compressed of not (str).', required=True)
     parser.add_argument('--output', metavar='output', type=str, help='Path to the output folder where output data will be stored (str).', required=True)
-    parser.add_argument('--matlab_App_path', metavar='matlab_App_path', type=str, help='Path to the matlab application, ie to the run_SkullStrip.sh file (str).', required=True)
-    parser.add_argument('--matlab_RunTime_path', metavar='matlab_runtime_path', type=str, help='Path to the matlab RunTime, ie to the v910 folder (str).', required=True)
     parser.add_argument('--device', help='GPU device index (int) or \'cpu\' (str).', default='cpu')
     parser.add_argument('--ensemble', help='Whether to use all the models (slower but more precise).', action="store_true",
                         default=False)
@@ -38,6 +36,6 @@ def console_tool():
         raise IOError('Output must be a folder, not an image.')
 
     os.makedirs(parse_args.output+'/tmp/', exist_ok=True)
-    inference(parse_args.input, parse_args.output, parse_args.matlab_App_path, parse_args.matlab_RunTime_path, parse_args.ensemble, parse_args.device, parse_args.remove_tmp_files)
+    inference(parse_args.input, parse_args.output, parse_args.ensemble, parse_args.device, parse_args.remove_tmp_files)
 
 

@@ -26,14 +26,12 @@ from .python_scripts.Volume_estimation import Single_Volume_Inference
 #from python_scripts.Volume_estimation import Single_Volume_Inference
 
 
-def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble, device, remove_tmp_files):
+def inference(infile, outfolder, ensemble, device, remove_tmp_files):
    
     print('Start of the pipeline...')
     print('Summary:')
     print('infile='+infile)
     print('outfolder='+outfolder)
-    print('matlab_App_path='+matlab_App_path)
-    print('matlab_runtime_path='+matlab_runtime_path)
     print('ensemble='+str(ensemble))
     print('device='+str(device))
     print('remove_tmp_files='+str(remove_tmp_files))
@@ -44,6 +42,11 @@ def inference(infile, outfolder, matlab_App_path, matlab_runtime_path, ensemble,
     
     fold = sep.join(os.path.realpath(__file__).split(sep)[:-1])
     
+
+    matlab_App_path = fold+sep+'compiled_matlab_scripts'+sep+'App'+sep+'application'+sep+'run_SkullStrip.sh'
+    matlab_runtime_path = fold+sep+'compiled_matlab_scripts'+sep+'RunTime'+sep+'v910'
+    print('matlab_App_path='+matlab_App_path)
+    print('matlab_runtime_path='+matlab_runtime_path)
     
     #CHECK THAT INPUT IMAGE HAS A QFORMCODE EQUAL TO 1
     print('Start of the quality control 1...')
