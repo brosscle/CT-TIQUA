@@ -15,6 +15,7 @@ import shutil
 
 from nipype.interfaces import fsl
 import ants
+import torch
 
 
 # When executing from the commandline (install with pip)
@@ -26,15 +27,14 @@ from .python_scripts.Volume_estimation import Single_Volume_Inference
 #from python_scripts.Volume_estimation import Single_Volume_Inference
 
 
-def inference(infile, outfolder, ensemble, device, remove_tmp_files):
+def inference(infile, outfolder, ensemble, keep_tmp_files):
    
     print('Start of the pipeline...')
     print('Summary:')
     print('infile='+infile)
     print('outfolder='+outfolder)
     print('ensemble='+str(ensemble))
-    print('device='+str(device))
-    print('remove_tmp_files='+str(remove_tmp_files))
+    print('keep_tmp_files='+str(keep_tmp_files))
     sep = os.sep
     basename = os.path.basename(infile).split('.')[0]
     tmp_fold = outfolder+sep+'tmp'+sep
@@ -43,8 +43,8 @@ def inference(infile, outfolder, ensemble, device, remove_tmp_files):
     fold = sep.join(os.path.realpath(__file__).split(sep)[:-1])
     
 
-    matlab_App_path = fold+sep+'compiled_matlab_scripts'+sep+'App'+sep+'application'+sep+'run_SkullStrip.sh'
-    matlab_runtime_path = fold+sep+'compiled_matlab_scripts'+sep+'RunTime'+sep+'v910'
+    matlab_App_path = sep+'compiled_matlab_scripts'+sep+'App'+sep+'application'+sep+'run_SkullStrip.sh'
+    matlab_runtime_path = sep+'compiled_matlab_scripts'+sep+'RunTime'+sep+'v910'
     print('matlab_App_path='+matlab_App_path)
     print('matlab_runtime_path='+matlab_runtime_path)
     
@@ -110,6 +110,12 @@ def inference(infile, outfolder, ensemble, device, remove_tmp_files):
     print('Start of the segmentation...')
     segfile = outfolder+sep+basename+'_seg.nii.gz'
     probfile = tmp_fold+sep+basename+'_prob.nii.gz'
+    if torch.cuda.is_available() and torch.cuda.device_count()>0:
+        device = torch.cuda.current_device()
+        print('Segmentation will run on GPU: ID='+str(device)+', NAME: '+torch.cuda.get_device_name(device))
+    else:
+        device = 'cpu'
+        print('Segmentation will run on CPU')
     console_tool_stand_alone(resampled_file, segfile, device, probfile, ensemble, tmp_fold)
     print('End of the segmentation')
     
@@ -179,7 +185,7 @@ def inference(infile, outfolder, ensemble, device, remove_tmp_files):
     
     print('End of the volume computation')
     
-    if remove_tmp_files:
+    if not keep_tmp_files:
         print('Removing of the temporary files...')
         #shutil.rmtree(tmp_fold+'blast_ct'+sep)
         shutil.rmtree(tmp_fold, ignore_errors=True)

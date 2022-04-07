@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="CT_TIQUA",
-    version="1.0",
+    version="1.2",
     author="Brossard Clement, Lemasson Benjamin",
     author_email="benjamin.lemasson@univ-grenoble-alpes.fr",
     description="computed Tomography traumatic brain Injury QUAntification",
@@ -31,6 +31,7 @@ setuptools.setup(
         'pybids',
         'antspyx',
         'nipype',
+        'boutiques',
     ],
     python_requires='>=3.7',
 )

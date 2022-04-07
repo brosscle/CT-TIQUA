@@ -1,8 +1,8 @@
 {
   "author" : "Clement BROSSARD",
-  "command-line" : "ct-tiqua [INPUT_FILE] [OUTPUT_FOLDER] [DEVICE] [ENSEMBLE] [REMOVE_TMP_FILES]",
+  "command-line" : "ct-tiqua [INPUT_FILE] --output output_folder [ENSEMBLE] [KEEP_TMP_FILES]; tar -cvzf CT-tiqua_output.tar.gz output_folder && rm -f output_folder",
   "container-image" : {
-    "image" : "brosscle/ct-tiqua:1.1",
+    "image" : "brosscle/ct-tiqua:1.2",
     "index" : "index.docker.io",
     "type" : "docker"
   },
@@ -18,24 +18,6 @@
       "value-key" : "[INPUT_FILE]"
     },
     {
-      "command-line-flag" : "--output",
-      "description" : "Path to the output folder where output data will be stored (str)",
-      "id" : "outfolder",
-      "name" : "Output folder",
-      "optional" : false,
-      "type" : "String",
-      "value-key" : "[OUTPUT_FOLDER]"
-    },
-    {
-      "command-line-flag" : "--device",
-      "description" : "GPU device index (int) or 'cpu' (str)",
-      "id" : "device",
-      "name" : "Device ID",
-      "optional" : true,
-      "type" : "Number",
-      "value-key" : "[DEVICE]"
-    },
-    {
       "command-line-flag" : "--ensemble",
       "description" : "For the segmentation step: Whether to use all the CNN models rather than only one (slower but more precise)",
       "id" : "ensemble",
@@ -45,40 +27,26 @@
       "value-key" : "[ENSEMBLE]"
     },
     {
-      "command-line-flag" : "--remove_tmp_files",
-      "description" : "Removing temporary files at the end of the pipeline",
-      "id" : "remove_tmp_files",
-      "name" : "Remove temporary files",
+      "command-line-flag" : "--keep_tmp_files",
+      "description" : "Do not remove temporary files at the end of the pipeline, ie include them in the output archive",
+      "id" : "keep_tmp_files",
+      "name" : "Keep temporary files",
       "optional" : true,
       "type" : "Flag",
-      "value-key" : "[REMOVE_TMP_FILES]"
+      "value-key" : "[KEEP_TMP_FILES]"
     }
   ],
  
   "name" : "ct-tiqua",
   "output-files" : [
     {
-      "description" : "Structural atlas linearly and elastically registered to the input image",
-      "id" : "outatlas",
-      "name" : "Output Atlas file",
+      "description" : "Tarball of all the outputs of CT-TIQUA, containing at least ",
+      "id" : "outfile",
+      "name" : "Output archive",
       "optional" : false,
-      "path-template" : "*_Altas_ANTSRegistered.nii.gz"
-    },
-    {
-      "description" : "Output 7-classes segmentation representing TBI lesions.",
-      "id" : "outseg",
-      "name" : "Output segmentation file",
-      "optional" : false,
-      "path-template" : "*_seg.nii.gz"
-    },
-    {
-      "description" : "Output volumes of each type of lesion in each of the zones of the structural atlas.",
-      "id" : "out_volumes",
-      "name" : "Output Volume",
-      "optional" : false,
-      "path-template" : "*_Volumes.csv"
+      "path-template" : "CT-tiqua_output.tar.gz"
     }
   ],
   "schema-version" : "0.5",
-  "tool-version" : "6.0.1"
+  "tool-version" : "1.2"
 }

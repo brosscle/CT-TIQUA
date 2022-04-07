@@ -125,15 +125,3 @@ def console_tool_stand_alone(inp, out, device, prob_maps, ensemble, fold_tmp):
 
 
 
-# #inp = "/media/cbrossard/ClementBackUp1/SUMO_bis/Reports_Playground/sub-P01/ses-J0/anat/sub-P01_ses-J0_CraneSansIV.nii"
-# #inp = "/data_network/irmage_pa/brossardc/DATA/Full_Radiomic_TBI/derivatives/Resampled1_Registered_Raw_Images/sub-P01_ses-J0_registered.nii.gz"
-# inp = "/data_network/irmage_pa/brossardc/DATA/Full_Radiomic_TBI/derivatives/Test_Blast_Monai/runs_BLAST/Exploration_BUG/sub-P25_ses-J0_registered_PATCH303030.nii.gz"
-# #out = "/media/cbrossard/ClementBackUp1/SUMO_bis/Reports_Playground/sub-P01/ses-J0/anat/blast_seg.nii.gz"
-# #out = "/data_network/irmage_pa/brossardc/DATA/Full_Radiomic_TBI/derivatives/Resampled1_Registered_Raw_Images/sub-P01_ses-J0_test_blast_breakpoint.nii.gz"
-# out = "/data_network/irmage_pa/brossardc/DATA/Full_Radiomic_TBI/derivatives/Test_Blast_Monai/runs_BLAST/Exploration_BUG/sub-P25_ses-J0_BLAST1_patch_spyder.nii.gz"
-# #prob_maps = "/media/cbrossard/ClementBackUp1/SUMO_bis/Reports_Playground/sub-P01/ses-J0/anat/tmp/sub-P01_ses-J0_BlastProbMap.nii.gz"
-# #prob_maps = "/data_network/irmage_pa/brossardc/DATA/Full_Radiomic_TBI/derivatives/Resampled1_Registered_Raw_Images/sub-P01_ses-J0_test_blastprobmap_breakpoint.nii.gz"
-# prob_maps = "/data_network/irmage_pa/brossardc/DATA/Full_Radiomic_TBI/derivatives/Test_Blast_Monai/runs_BLAST/Exploration_BUG/sub-P25_ses-J0_probmap1_patch_spyder.nii.gz"
-# device = 0
-# ensemble = False
-# console_tool_stand_alone(inp, out, device, prob_maps, ensemble)
