@@ -2,7 +2,7 @@
   "author" : "Clement BROSSARD",
   "command-line" : "ct-tiqua [INPUT_FILE] --output output_folder [ENSEMBLE] [KEEP_TMP_FILES]; tar -cvzf CT-tiqua_output.tar.gz output_folder && rm -f output_folder",
   "container-image" : {
-    "image" : "brosscle/ct-tiqua:1.2",
+    "image" : "brosscle/ct-tiqua:1.3",
     "index" : "index.docker.io",
     "type" : "docker"
   },
@@ -48,5 +48,5 @@
     }
   ],
   "schema-version" : "0.5",
-  "tool-version" : "1.2"
+  "tool-version" : "1.3"
 }
