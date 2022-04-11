@@ -6,11 +6,11 @@
     "index" : "index.docker.io",
     "type" : "docker"
   },
-  "description" : "Computed Tomography based Traumatic Brain Injury Quantification",
+  "description" : "Computed Tomography based Traumatic Brain Injury Quantification. This software takes as input a CT-scan of a head injured patient and returns: 1/ the segmentation of 7 types of lesions typical from TBI, 2/ a structural atlas dividing the input brain in 10 zones, and 3/ a csv file containing the volume in mm3 of all type on lesion in all zone of the brain. It was developed by Clement Brossard and Benjamin Lemasson (benjamin.lemasson@univ-grenoble-alpes.fr). We are currently writing a scientifica article descibing the whole process. If you use our software, please cite our work!",
   "inputs" : [
     {
       "command-line-flag" : "--input",
-      "description" : "Input image (e.g. img.nii, img.nii.gz) (str)",
+      "description" : "Input image (e.g. img.nii, img.nii.gz) to be processed. It must be a brain CT-scan.",
       "id" : "infile",
       "name" : "Input file",
       "optional" : false,
@@ -19,7 +19,7 @@
     },
     {
       "command-line-flag" : "--ensemble",
-      "description" : "For the segmentation step: Whether to use all the CNN models rather than only one (slower but more precise)",
+      "description" : "For the segmentation step: Whether to use all the 12 CNN models rather than only one (slower but more precise).",
       "id" : "ensemble",
       "name" : "Ensemble CNN models",
       "optional" : true,
@@ -28,7 +28,7 @@
     },
     {
       "command-line-flag" : "--keep_tmp_files",
-      "description" : "Do not remove temporary files at the end of the pipeline, ie include them in the output archive",
+      "description" : "Do not remove temporary files at the end of the pipeline, ie. include them in the output archive.",
       "id" : "keep_tmp_files",
       "name" : "Keep temporary files",
       "optional" : true,
@@ -40,7 +40,7 @@
   "name" : "ct-tiqua",
   "output-files" : [
     {
-      "description" : "Tarball of all the outputs of CT-TIQUA, containing at least ",
+      "description" : "Tarball of all the outputs of CT-TIQUA. ",
       "id" : "outfile",
       "name" : "Output archive",
       "optional" : false,
