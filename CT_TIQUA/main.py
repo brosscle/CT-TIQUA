@@ -129,7 +129,7 @@ def inference(infile, outfolder, ensemble, keep_tmp_files):
 
     flt.inputs.in_file = Template
     flt.inputs.reference = tmp_fold+basename+'_SkullStripped_clean.nii.gz'
-    flt.inputs.out_file = tmp_fold+basename+'_Template_FLIRTRegistered.nii.gz'
+    flt.inputs.out_file = tmp_fold+basename+'_Template_FLIRTRegistered.nii'
     flt.inputs.out_matrix_file = tmp_fold+basename+ '_FLIRTRegisteredTemplate_transform-matrix.mat'
     flt.inputs.dof = 7
     flt.inputs.bins = 256
@@ -145,7 +145,7 @@ def inference(infile, outfolder, ensemble, keep_tmp_files):
     applyxfm = fsl.ApplyXFM()
     applyxfm.inputs.in_matrix_file = tmp_fold+basename+ '_FLIRTRegisteredTemplate_transform-matrix.mat'
     applyxfm.inputs.in_file = Atlas
-    applyxfm.inputs.out_file = tmp_fold+basename+'_Altas_FLIRTRegistered.nii.gz'
+    applyxfm.inputs.out_file = tmp_fold+basename+'_Altas_FLIRTRegistered.nii'
     applyxfm.inputs.reference = tmp_fold+basename+'_SkullStripped_clean.nii.gz'
     applyxfm.inputs.apply_xfm = True
     applyxfm.inputs.out_matrix_file = tmp_fold+basename+ '_FLIRTRegisteredAtlas_transform-matrix.mat'
@@ -162,13 +162,13 @@ def inference(infile, outfolder, ensemble, keep_tmp_files):
     
     print('Start of the elastic registration...')
     img_fixed = ants.image_read(tmp_fold+basename+'_SkullStripped_clean.nii.gz')
-    img_moving = ants.image_read(tmp_fold+basename+'_Template_FLIRTRegistered.nii.gz')
+    img_moving = ants.image_read(tmp_fold+basename+'_Template_FLIRTRegistered.nii')
     outprefix=tmp_fold+basename
     reg = ants.registration(img_fixed, img_moving, outprefix=outprefix, random_seed=42)
     reg['warpedmovout'].to_file(tmp_fold+basename+'_Template_ANTSRegistered.nii.gz')
     
     mytx = reg['fwdtransforms']
-    im_to_embarque = ants.image_read(tmp_fold+basename+'_Altas_FLIRTRegistered.nii.gz')
+    im_to_embarque = ants.image_read(tmp_fold+basename+'_Altas_FLIRTRegistered.nii')
     embarqued_im = ants.apply_transforms(img_fixed, im_to_embarque, transformlist=mytx, interpolator='nearestNeighbor')
     embarqued_im.to_file(outfolder+sep+basename+'_Altas_ANTSRegistered.nii.gz')
     print('End of the elastic registration')
